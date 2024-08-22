@@ -159,6 +159,11 @@ namespace QuickRecordEditor
                         resultLabel.Text = "Found record";
                         resultLabel.Visible = true;
                         resultLabel.ForeColor = Color.Green;
+
+                        attributesDropdown.ParentEntity = entitySelected;
+                        attributesDropdown.ParentEntityLogicalName = entityLogicalName;
+                        attributesDropdown.LoadData();
+
                     }
                     else
                     {
@@ -200,6 +205,10 @@ namespace QuickRecordEditor
         {
             return Guid.TryParse(input, out _);
         }
-        
+
+        private void attributeDropdownControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

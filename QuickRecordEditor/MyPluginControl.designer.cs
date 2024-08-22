@@ -38,10 +38,12 @@
             this.entitiesDropdownControl1 = new xrmtb.XrmToolBox.Controls.EntitiesDropdownControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.recordGuidBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.attributesDropdown = new xrmtb.XrmToolBox.Controls.AttributeDropdownControl();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.recordGuidBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -145,6 +147,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.attributesDropdown);
             this.panel1.Controls.Add(this.resultLabel);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
@@ -154,23 +158,29 @@
             this.panel1.Size = new System.Drawing.Size(492, 366);
             this.panel1.TabIndex = 0;
             // 
-            // recordGuidBox
+            // attributesDropdown
             // 
-            this.recordGuidBox.Location = new System.Drawing.Point(18, 59);
-            this.recordGuidBox.Name = "recordGuidBox";
-            this.recordGuidBox.Size = new System.Drawing.Size(187, 20);
-            this.recordGuidBox.TabIndex = 0;
-            this.recordGuidBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.attributesDropdown.AutoLoadData = false;
+            this.attributesDropdown.LanguageCode = 1033;
+            this.attributesDropdown.Location = new System.Drawing.Point(18, 213);
+            this.attributesDropdown.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.attributesDropdown.Name = "attributesDropdown";
+            this.attributesDropdown.ParentEntity = null;
+            this.attributesDropdown.ParentEntityLogicalName = null;
+            this.attributesDropdown.Service = null;
+            this.attributesDropdown.Size = new System.Drawing.Size(268, 28);
+            this.attributesDropdown.TabIndex = 5;
+            this.attributesDropdown.Load += new System.EventHandler(this.attributeDropdownControl1_Load);
             // 
-            // label2
+            // resultLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Write the record GUID:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(95, 125);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(35, 13);
+            this.resultLabel.TabIndex = 4;
+            this.resultLabel.Text = "label3";
+            this.resultLabel.Visible = false;
             // 
             // button1
             // 
@@ -182,15 +192,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // resultLabel
+            // label2
             // 
-            this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(95, 125);
-            this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(35, 13);
-            this.resultLabel.TabIndex = 4;
-            this.resultLabel.Text = "label3";
-            this.resultLabel.Visible = false;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(47, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Write the record GUID:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // recordGuidBox
+            // 
+            this.recordGuidBox.Location = new System.Drawing.Point(18, 59);
+            this.recordGuidBox.Name = "recordGuidBox";
+            this.recordGuidBox.Size = new System.Drawing.Size(187, 20);
+            this.recordGuidBox.TabIndex = 0;
+            this.recordGuidBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(232, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(211, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "82ade658-41bc-ee11-a569-6045bd90b824";
             // 
             // MyPluginControl
             // 
@@ -233,5 +260,7 @@
         private System.Windows.Forms.TextBox recordGuidBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label resultLabel;
+        private xrmtb.XrmToolBox.Controls.AttributeDropdownControl attributesDropdown;
+        private System.Windows.Forms.Label label3;
     }
 }
