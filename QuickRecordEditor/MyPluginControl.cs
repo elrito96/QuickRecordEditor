@@ -102,6 +102,104 @@ namespace QuickRecordEditor
                 mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
+
+            entitiesDropdownControl1.Service = newService;
         }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void toolStripMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Example: account guid: 82ade658-41bc-ee11-a569-6045bd90b824
+
+            // When clicked search entity selected in entitiesDropdownControl1_Load, with GUID in textBox1_TextChanged: 
+            var entitySelected = entitiesDropdownControl1.SelectedEntity;
+            string entityLogicalName = entitySelected.LogicalName;
+            string recordGuid = recordGuidBox.Text;
+
+            bool isValid = IsValidGuid(recordGuid);
+
+            if (isValid)
+            {
+                // Search
+                try
+                {
+                    Entity resultEntity = Service.Retrieve(entityLogicalName, new Guid(recordGuid), new ColumnSet(true));
+                    if (resultEntity != null)
+                    {
+                        // found
+                        resultLabel.Text = "Found record";
+                        resultLabel.Visible = true;
+                        resultLabel.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        // not found
+                        resultLabel.Text = "Couldn't find record of entity " + entityLogicalName + " with GUID: " + recordGuid;
+                        resultLabel.Visible = true;
+                        resultLabel.ForeColor = Color.Red;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = "Error retrieving entity: " + ex.Message;
+                }
+            }
+            else
+            {
+                resultLabel.Text = recordGuid + " is not a valid GUID";
+                resultLabel.Visible = true;
+                resultLabel.ForeColor = Color.Red;
+            }
+
+            
+
+
+        }
+
+        private void entitiesDropdownControl1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
+        public static bool IsValidGuid(string input)
+        {
+            return Guid.TryParse(input, out _);
+        }
+        
     }
 }

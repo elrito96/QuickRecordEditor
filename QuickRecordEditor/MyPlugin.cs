@@ -14,7 +14,7 @@ namespace QuickRecordEditor
     // Do not forget to update version number and author (company attribute) in AssemblyInfo.cs class
     // To generate Base64 string for Images below, you can use https://www.base64-image.de/
     [Export(typeof(IXrmToolBoxPlugin)),
-        ExportMetadata("Name", "Quick Entity Editor"),
+        ExportMetadata("Name", "Quick Record Editor"),
         ExportMetadata("Description", "This tool lets you easily and quickly modify a record's fields"),
         // Please specify the base64 content of a 32x32 pixels image
         ExportMetadata("SmallImageBase64", null),
@@ -26,7 +26,6 @@ namespace QuickRecordEditor
         ExportMetadata("SecondaryFontColor", "Gray")]
     public class MyPlugin : PluginBase
     {
-        public static string base64image32 = "data:image/png;base64,";
         
         public override IXrmToolBoxPluginControl GetControl()
         {
