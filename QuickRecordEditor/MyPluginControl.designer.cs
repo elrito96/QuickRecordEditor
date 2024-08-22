@@ -45,7 +45,7 @@
             this.tsbSample});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(559, 25);
+            this.toolStripMenu.Size = new System.Drawing.Size(753, 25);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -77,7 +77,7 @@
             this.Controls.Add(this.toolStripMenu);
             this.Name = "MyPluginControl";
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
-            this.Size = new System.Drawing.Size(559, 300);
+            this.Size = new System.Drawing.Size(753, 397);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
