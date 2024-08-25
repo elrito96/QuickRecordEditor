@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using xrmtb.XrmToolBox.Controls;
 using XrmToolBox.Extensibility;
+using AttributeMetadata = Microsoft.Xrm.Sdk.Metadata.AttributeMetadata;
 
 namespace QuickRecordEditor
 {
     public partial class MyPluginControl : PluginControlBase
     {
+        
         private Settings mySettings;
+        public static string recordGUID;
 
         public MyPluginControl()
         {
@@ -109,6 +113,314 @@ namespace QuickRecordEditor
 
             entitiesDropdownControl1.Service = newService;
             attributesDropdown.Service = newService;
+            attributesDropdown.SelectedItemChanged += AttributeTypeComboBox_SelectedIndexChanged;
+
+        }
+        private void AttributeTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(attributesDropdown.SelectedAttribute != null)
+            {
+                AttributeMetadata selectedAttributeMetadata = attributesDropdown.SelectedAttribute;
+                DisplayInputsAndSetValues(selectedAttributeMetadata);
+            }
+        }
+
+        private void DisplayInputsAndSetValues(AttributeMetadata selectedAttributeMetadata)
+        {
+            string attributeType = selectedAttributeMetadata.AttributeTypeName.Value;
+            // Hide all controls first
+            textBox.Visible = false;
+            textBox.Location = new System.Drawing.Point(0, 0);
+            textBoxLabel.Visible = false;
+            textBoxLabel.Location = new System.Drawing.Point(0, 0);
+
+            checkBox.Visible = false;
+            checkBox.Location = new System.Drawing.Point(0, 0);
+            checkBoxLabel.Visible = false;
+            checkBoxLabel.Location = new System.Drawing.Point(0, 0);
+
+            dateTimePicker.Visible = false;
+            dateTimePicker.Location = new System.Drawing.Point(0, 0);
+            datetimePickerLabel.Visible = false;
+            datetimePickerLabel.Location = new System.Drawing.Point(0, 0);
+
+            comboBox.Visible = false;
+            comboBox.Location = new System.Drawing.Point(0, 0);
+            comboBoxLabel.Visible = false;
+            comboBoxLabel.Location = new System.Drawing.Point(0, 0);
+
+            //TODO UniqueidentifierType
+
+            // Show the relevant control based on the attribute type
+            switch (attributeType)
+            {
+                case "StringType": 
+                case "IntegerType":
+                case "DecimalType":
+                case "DoubleType":
+                case "MoneyType":
+                case "LookupType":
+                    textBox.Visible = true;
+                    textBoxLabel.Visible = true;
+                    break;
+
+                case "BooleanType":
+                    checkBox.Visible = true;
+                    checkBoxLabel.Visible= true;
+                    break;
+
+                case "DateTimeType":
+                    dateTimePicker.Visible = true;
+                    datetimePickerLabel.Visible = true;
+                    break;
+
+                case "OptionSetType":
+                case "PicklistType":
+                    comboBox.Visible = true;
+                    comboBoxLabel.Visible = true;
+
+                    //populate combobox
+                    var optionList = new List<KeyValuePair<int, string>>();
+                    // Iterate through each option in the OptionSet
+                    foreach (var option in ((EnumAttributeMetadata)selectedAttributeMetadata).OptionSet.Options)
+                    {
+                        optionList.Add(new KeyValuePair<int, string>(option.Value.Value, option.Label.UserLocalizedLabel.Label));
+                    }
+                    // Set the ComboBox DataSource
+                    comboBox.DataSource = new BindingSource(optionList, null);
+                    comboBox.DisplayMember = "Value";
+                    comboBox.ValueMember = "Key";
+                    break;
+
+                default:
+                    setLabel(updateResultLabel, attributeType + " Is an unsupported attribute type", Color.Red);
+                    break;
+            }
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Example: account guid: 82ade658-41bc-ee11-a569-6045bd90b824
+
+            // When clicked search entity selected in entitiesDropdownControl1_Load, with GUID in textBox1_TextChanged: 
+            var entitySelectedMetadata = entitiesDropdownControl1.SelectedEntity;
+            string entityLogicalName = entitySelectedMetadata.LogicalName;
+            recordGUID = recordGuidBox.Text;
+            recordGUID = "82ade658-41bc-ee11-a569-6045bd90b824";
+
+            bool isValid = IsValidGuid(recordGUID);
+
+            if (isValid)
+            {
+                // Search
+                try
+                {
+                    Entity resultEntity = Service.Retrieve(entityLogicalName, new Guid(recordGUID), new ColumnSet(true));
+                    if (resultEntity != null)
+                    {
+                        // found
+                        setLabel(searchResultLabel, "Found record", Color.Green);
+                        
+                        var fullmetadata = entitySelectedMetadata;
+
+                        attributesDropdown.ParentEntity = fullmetadata;
+                        attributesDropdown.ParentEntityLogicalName = "account";
+
+                    }
+                    else
+                    {
+                        // not found
+                        setLabel(searchResultLabel, "Couldn't find record of entity " + entityLogicalName + " with GUID: " + recordGUID, Color.Red);
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = "Error retrieving entity: " + ex.Message;
+                }
+            }
+            else
+            {
+                setLabel(searchResultLabel, recordGUID + " is not a valid GUID", Color.Red);
+            }
+
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            var entitySelected = entitiesDropdownControl1.SelectedEntity;
+            string entityLogicalName = entitySelected.LogicalName;
+            recordGUID = recordGuidBox.Text;
+            recordGUID = "82ade658-41bc-ee11-a569-6045bd90b824";
+            AttributeMetadata attributeToUpdateMetadata = attributesDropdown.SelectedAttribute;
+            string attributeToUpdateName = attributeToUpdateMetadata.LogicalName;
+            Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGUID));
+
+            var attributeTypeName = attributeToUpdateMetadata.AttributeTypeName;
+
+
+            switch (attributeTypeName.Value)
+            {
+                case "StringType":
+                    entityToUpdate.Attributes[attributeToUpdateName] = textBox.Text;
+                    break;
+
+                case "IntegerType":
+                    if (int.TryParse(textBox.Text, out int intValue))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = intValue;
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid integer value.", Color.Red);
+                    }
+                    break;
+
+                case "DecimalType":
+                    if (decimal.TryParse(textBox.Text, out decimal decimalValue))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = decimalValue;
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid decimal value.", Color.Red);
+                    }
+                    break;
+
+                case "DoubleType":
+                    if (double.TryParse(textBox.Text, out double doubleValue))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = doubleValue;
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid double value.", Color.Red);
+                    }
+                    break;
+                case "MoneyType":
+                    if (decimal.TryParse(textBox.Text, out decimal moneyValue))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = new Money(moneyValue);
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid money value.", Color.Red);
+                    }
+                    break;
+
+                case "LookupType":
+                    if (Guid.TryParse(textBox.Text, out Guid lookupId))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = new EntityReference("entityLogicalName", lookupId); // Replace "entityLogicalName" with the logical name of the lookup entity
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid GUID for lookup.", Color.Red);
+                    }
+                    break;
+
+                case "BooleanType":
+                    bool boolValue = checkBox.Checked;
+                    entityToUpdate.Attributes[attributeToUpdateName] = boolValue;
+                    break;
+
+                case "DateTimeType":
+                    DateTime dateTimeValue = dateTimePicker.Value;
+                    entityToUpdate.Attributes[attributeToUpdateName] = dateTimeValue;
+                    break;
+
+                case "OptionSetType":
+                    if (int.TryParse(textBox.Text, out int optionSetValue))
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = new OptionSetValue(optionSetValue);
+                    }
+                    else
+                    {
+                        setLabel(updateResultLabel, "Invalid option set value.", Color.Red);
+                    }
+                    break;
+
+                default:
+                    setLabel(updateResultLabel, "Unsupported attribute type.", Color.Red);
+                    break;
+            }
+
+            try
+            {
+                Service.Update(entityToUpdate);
+                setLabel(updateResultLabel, "Update Successful", Color.Green);
+
+            } catch (Exception ex)
+            {
+                // Errror updating
+                Service.Update(entityToUpdate);
+                setLabel(updateResultLabel, "Error updating record: "+ex.Message, Color.Red);
+            }
+        }
+
+        private void setLabel(System.Windows.Forms.Label label, string text, Color color)
+        {
+            label.Text = text;
+            label.ForeColor = color;
+            label.Visible = true;
+        }
+        private static bool IsValidGuid(string input)
+        {
+            return Guid.TryParse(input, out _);
+        }
+
+        private void updateResultLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void attributeTypeComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void attributeDropdownControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void attributeDropdownBaseControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void entitiesDropdownControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
@@ -142,154 +454,16 @@ namespace QuickRecordEditor
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Example: account guid: 82ade658-41bc-ee11-a569-6045bd90b824
-
-            // When clicked search entity selected in entitiesDropdownControl1_Load, with GUID in textBox1_TextChanged: 
-            var entitySelected = entitiesDropdownControl1.SelectedEntity;
-            string entityLogicalName = entitySelected.LogicalName;
-            string recordGuid = recordGuidBox.Text;
-
-            bool isValid = IsValidGuid(recordGuid);
-
-            if (isValid)
+            if (checkBox.Checked)
             {
-                // Search
-                try
-                {
-                    Entity resultEntity = Service.Retrieve(entityLogicalName, new Guid(recordGuid), new ColumnSet(true));
-                    if (resultEntity != null)
-                    {
-                        // found
-                        setLabel(searchResultLabel, "Found record", Color.Green);
-                        // Create the request
-                        var request = new RetrieveEntityRequest
-                        {
-                            EntityFilters = EntityFilters.All, // Specify what parts of the metadata you want
-                            LogicalName = entityLogicalName,   // The logical name of the entity
-                            RetrieveAsIfPublished = true       // If true, retrieves metadata that includes any unpublished changes
-                        };
-
-                        // Execute the request
-                        var response = (RetrieveEntityResponse)Service.Execute(request);
-
-                        var fullmetadata = response.EntityMetadata;
-
-                        attributesDropdown.ParentEntity = fullmetadata;
-                        attributesDropdown.ParentEntityLogicalName = "account";
-
-                        attributesDropdown.Refresh();
-                    }
-                    else
-                    {
-                        // not found
-                        setLabel(searchResultLabel, "Couldn't find record of entity " + entityLogicalName + " with GUID: " + recordGuid, Color.Red);
-                        
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string message = "Error retrieving entity: " + ex.Message;
-                }
+                checkBox.Text = "True";
             }
             else
             {
-                setLabel(searchResultLabel, recordGuid + " is not a valid GUID", Color.Red);
+                checkBox.Text = "False";
             }
-
-        }
-
-        private void entitiesDropdownControl1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        
-        public static bool IsValidGuid(string input)
-        {
-            return Guid.TryParse(input, out _);
-        }
-
-        private void attributeDropdownControl1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void attributeDropdownBaseControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void updateButton_Click(object sender, EventArgs e)
-        {
-            var entitySelected = entitiesDropdownControl1.SelectedEntity;
-            string entityLogicalName = entitySelected.LogicalName;
-            string recordGuid = recordGuidBox.Text;
-            AttributeMetadata attributeToUpdateMetadata = attributesDropdown.SelectedAttribute;
-            string attributeToUpdateName = attributeToUpdateMetadata.LogicalName;
-
-            bool isValid = IsValidGuid(recordGuid);
-            if (isValid)
-            {
-                Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGuid));
-                entityToUpdate.Attributes[attributeToUpdateName] = newValueTextBox.Text;
-
-                try
-                {
-                    Service.Update(entityToUpdate);
-                    setLabel(updateResultLabel, "Update Successful", Color.Green);
-
-                } catch (Exception ex)
-                {
-                    // Errror updating
-                    Service.Update(entityToUpdate);
-                    setLabel(updateResultLabel, "Error updating record: "+ex.Message, Color.Red);
-                }
-
-
-            } else
-            {
-                // Error not valid guid
-                setLabel(updateResultLabel, "Error GUID not valid", Color.Red);
-            }
-        }
-
-        private void setLabel(System.Windows.Forms.Label label, string text, Color color)
-        {
-            label.Text = text;
-            label.ForeColor = color;
-            label.Visible = true;
-        }
-
-        private void updateResultLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
         }
     }
 }
