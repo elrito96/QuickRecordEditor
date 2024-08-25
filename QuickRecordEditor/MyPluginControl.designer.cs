@@ -42,11 +42,11 @@
             this.updateResultLabel = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.datetimePickerLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.comboBoxLabel = new System.Windows.Forms.Label();
-            this.comboBox = new System.Windows.Forms.ComboBox();
             this.checkBox = new System.Windows.Forms.CheckBox();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.datetimePickerLabel = new System.Windows.Forms.Label();
+            this.comboBoxLabel = new System.Windows.Forms.Label();
             this.checkBoxLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -97,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 191);
+            this.label2.Location = new System.Drawing.Point(42, 137);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 2;
@@ -106,7 +106,7 @@
             // 
             // recordGuidBox
             // 
-            this.recordGuidBox.Location = new System.Drawing.Point(30, 210);
+            this.recordGuidBox.Location = new System.Drawing.Point(30, 153);
             this.recordGuidBox.Name = "recordGuidBox";
             this.recordGuidBox.Size = new System.Drawing.Size(312, 20);
             this.recordGuidBox.TabIndex = 0;
@@ -114,7 +114,7 @@
             // 
             // searchRecordButton
             // 
-            this.searchRecordButton.Location = new System.Drawing.Point(348, 208);
+            this.searchRecordButton.Location = new System.Drawing.Point(348, 151);
             this.searchRecordButton.Name = "searchRecordButton";
             this.searchRecordButton.Size = new System.Drawing.Size(75, 23);
             this.searchRecordButton.TabIndex = 3;
@@ -135,7 +135,7 @@
             // searchResultLabel
             // 
             this.searchResultLabel.AutoSize = true;
-            this.searchResultLabel.Location = new System.Drawing.Point(27, 243);
+            this.searchResultLabel.Location = new System.Drawing.Point(27, 186);
             this.searchResultLabel.Name = "searchResultLabel";
             this.searchResultLabel.Size = new System.Drawing.Size(35, 13);
             this.searchResultLabel.TabIndex = 7;
@@ -145,7 +145,7 @@
             // textBoxLabel
             // 
             this.textBoxLabel.AutoSize = true;
-            this.textBoxLabel.Location = new System.Drawing.Point(-3, 3);
+            this.textBoxLabel.Location = new System.Drawing.Point(289, 0);
             this.textBoxLabel.Name = "textBoxLabel";
             this.textBoxLabel.Size = new System.Drawing.Size(212, 13);
             this.textBoxLabel.TabIndex = 8;
@@ -155,7 +155,7 @@
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(0, 0);
+            this.textBox.Location = new System.Drawing.Point(6, 6);
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(291, 20);
             this.textBox.TabIndex = 9;
@@ -189,54 +189,15 @@
             this.panel1.Controls.Add(this.dateTimePicker);
             this.panel1.Controls.Add(this.comboBox);
             this.panel1.Controls.Add(this.textBox);
-            this.panel1.Location = new System.Drawing.Point(722, 138);
+            this.panel1.Location = new System.Drawing.Point(0, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(313, 92);
+            this.panel1.Size = new System.Drawing.Size(306, 116);
             this.panel1.TabIndex = 12;
-            // 
-            // datetimePickerLabel
-            // 
-            this.datetimePickerLabel.AutoSize = true;
-            this.datetimePickerLabel.Location = new System.Drawing.Point(3, 55);
-            this.datetimePickerLabel.Name = "datetimePickerLabel";
-            this.datetimePickerLabel.Size = new System.Drawing.Size(102, 13);
-            this.datetimePickerLabel.TabIndex = 13;
-            this.datetimePickerLabel.Text = "Select the new date";
-            this.datetimePickerLabel.Visible = false;
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Location = new System.Drawing.Point(0, 49);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(291, 20);
-            this.dateTimePicker.TabIndex = 12;
-            this.dateTimePicker.Visible = false;
-            // 
-            // comboBoxLabel
-            // 
-            this.comboBoxLabel.AutoSize = true;
-            this.comboBoxLabel.Location = new System.Drawing.Point(0, 25);
-            this.comboBoxLabel.Name = "comboBoxLabel";
-            this.comboBoxLabel.Size = new System.Drawing.Size(123, 13);
-            this.comboBoxLabel.TabIndex = 11;
-            this.comboBoxLabel.Text = "Select the correct option";
-            this.comboBoxLabel.Visible = false;
-            this.comboBoxLabel.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // comboBox
-            // 
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Location = new System.Drawing.Point(0, 22);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(291, 21);
-            this.comboBox.TabIndex = 10;
-            this.comboBox.Visible = false;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.attributeTypeComboBox_SelectedIndexChanged_1);
             // 
             // checkBox
             // 
             this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(3, 75);
+            this.checkBox.Location = new System.Drawing.Point(6, 72);
             this.checkBox.Name = "checkBox";
             this.checkBox.Size = new System.Drawing.Size(51, 17);
             this.checkBox.TabIndex = 14;
@@ -245,10 +206,49 @@
             this.checkBox.Visible = false;
             this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(6, 49);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(291, 20);
+            this.dateTimePicker.TabIndex = 12;
+            this.dateTimePicker.Visible = false;
+            // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Location = new System.Drawing.Point(6, 28);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(291, 21);
+            this.comboBox.TabIndex = 10;
+            this.comboBox.Visible = false;
+            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.attributeTypeComboBox_SelectedIndexChanged_1);
+            // 
+            // datetimePickerLabel
+            // 
+            this.datetimePickerLabel.AutoSize = true;
+            this.datetimePickerLabel.Location = new System.Drawing.Point(389, 40);
+            this.datetimePickerLabel.Name = "datetimePickerLabel";
+            this.datetimePickerLabel.Size = new System.Drawing.Size(102, 13);
+            this.datetimePickerLabel.TabIndex = 13;
+            this.datetimePickerLabel.Text = "Select the new date";
+            this.datetimePickerLabel.Visible = false;
+            // 
+            // comboBoxLabel
+            // 
+            this.comboBoxLabel.AutoSize = true;
+            this.comboBoxLabel.Location = new System.Drawing.Point(378, 27);
+            this.comboBoxLabel.Name = "comboBoxLabel";
+            this.comboBoxLabel.Size = new System.Drawing.Size(123, 13);
+            this.comboBoxLabel.TabIndex = 11;
+            this.comboBoxLabel.Text = "Select the correct option";
+            this.comboBoxLabel.Visible = false;
+            this.comboBoxLabel.Click += new System.EventHandler(this.label5_Click);
+            // 
             // checkBoxLabel
             // 
             this.checkBoxLabel.AutoSize = true;
-            this.checkBoxLabel.Location = new System.Drawing.Point(3, 75);
+            this.checkBoxLabel.Location = new System.Drawing.Point(263, 53);
             this.checkBoxLabel.Name = "checkBoxLabel";
             this.checkBoxLabel.Size = new System.Drawing.Size(238, 13);
             this.checkBoxLabel.TabIndex = 15;
@@ -258,12 +258,13 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.checkBoxLabel);
+            this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.datetimePickerLabel);
             this.panel2.Controls.Add(this.comboBoxLabel);
             this.panel2.Controls.Add(this.textBoxLabel);
-            this.panel2.Location = new System.Drawing.Point(466, 138);
+            this.panel2.Location = new System.Drawing.Point(466, 121);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(250, 92);
+            this.panel2.Size = new System.Drawing.Size(504, 118);
             this.panel2.TabIndex = 13;
             // 
             // tssSeparator1
@@ -297,8 +298,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.recordGuidBox);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.updateResultLabel);
             this.Controls.Add(this.searchResultLabel);
@@ -309,6 +308,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.entitiesDropdownControl1);
+            this.Controls.Add(this.panel2);
             this.Name = "MyPluginControl";
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(1076, 472);

@@ -222,6 +222,7 @@ namespace QuickRecordEditor
 
             var attributeTypeName = attributeToUpdateMetadata.AttributeTypeName;
 
+            bool validUpdate = true;
 
             switch (attributeTypeName.Value)
             {
@@ -294,32 +295,43 @@ namespace QuickRecordEditor
                     break;
 
                 case "OptionSetType":
-                    if (int.TryParse(textBox.Text, out int optionSetValue))
+                case "PicklistType":
+                    if (comboBox.SelectedItem != null)
                     {
+                        // Assuming the ComboBox is bound to a list of KeyValuePair<int, string>
+                        var selectedOption = (KeyValuePair<int, string>)comboBox.SelectedItem;
+                        int optionSetValue = selectedOption.Key;
+
                         entityToUpdate.Attributes[attributeToUpdateName] = new OptionSetValue(optionSetValue);
                     }
                     else
                     {
-                        setLabel(updateResultLabel, "Invalid option set value.", Color.Red);
+                        setLabel(updateResultLabel, "Please select a valid option.", Color.Red);
                     }
                     break;
 
                 default:
                     setLabel(updateResultLabel, "Unsupported attribute type.", Color.Red);
+                    validUpdate = false;
                     break;
             }
 
-            try
+            if (validUpdate)
             {
-                Service.Update(entityToUpdate);
-                setLabel(updateResultLabel, "Update Successful", Color.Green);
+                try
+                {
+                    Service.Update(entityToUpdate);
+                    setLabel(updateResultLabel, "Update Successful", Color.Green);
 
-            } catch (Exception ex)
-            {
-                // Errror updating
-                Service.Update(entityToUpdate);
-                setLabel(updateResultLabel, "Error updating record: "+ex.Message, Color.Red);
+                }
+                catch (Exception ex)
+                {
+                    // Errror updating
+                    Service.Update(entityToUpdate);
+                    setLabel(updateResultLabel, "Error updating record: " + ex.Message, Color.Red);
+                }
             }
+            
         }
 
         private void setLabel(System.Windows.Forms.Label label, string text, Color color)
