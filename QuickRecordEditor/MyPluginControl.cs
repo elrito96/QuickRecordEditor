@@ -33,7 +33,7 @@ namespace QuickRecordEditor
 
         private void MyPluginControl_Load(object sender, EventArgs e)
         {
-            ShowInfoNotification("This is a notification that can lead to XrmToolBox repository", new Uri("https://github.com/MscrmTools/XrmToolBox"));
+            ShowInfoNotification("This tool is opencode, link to git:", new Uri("https://github.com/elrito96/QuickRecordEditor"));
 
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
@@ -51,40 +51,6 @@ namespace QuickRecordEditor
         private void tsbClose_Click(object sender, EventArgs e)
         {
             CloseTool();
-        }
-
-        private void tsbSample_Click(object sender, EventArgs e)
-        {
-            // The ExecuteMethod method handles connecting to an
-            // organization if XrmToolBox is not yet connected
-            ExecuteMethod(GetAccounts);
-        }
-
-        private void GetAccounts()
-        {
-            WorkAsync(new WorkAsyncInfo
-            {
-                Message = "Getting accounts",
-                Work = (worker, args) =>
-                {
-                    args.Result = Service.RetrieveMultiple(new QueryExpression("account")
-                    {
-                        TopCount = 50
-                    });
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    var result = args.Result as EntityCollection;
-                    if (result != null)
-                    {
-                        MessageBox.Show($"Found {result.Entities.Count} accounts");
-                    }
-                }
-            });
         }
 
         /// <summary>
@@ -199,7 +165,7 @@ namespace QuickRecordEditor
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void searchRecordButton_Click(object sender, EventArgs e)
         {
             // Example: account guid: 82ade658-41bc-ee11-a569-6045bd90b824
 
@@ -207,7 +173,6 @@ namespace QuickRecordEditor
             var entitySelectedMetadata = entitiesDropdownControl1.SelectedEntity;
             string entityLogicalName = entitySelectedMetadata.LogicalName;
             recordGUID = recordGuidBox.Text;
-            recordGUID = "82ade658-41bc-ee11-a569-6045bd90b824";
 
             bool isValid = IsValidGuid(recordGUID);
 
@@ -225,7 +190,6 @@ namespace QuickRecordEditor
                         var fullmetadata = entitySelectedMetadata;
 
                         attributesDropdown.ParentEntity = fullmetadata;
-                        attributesDropdown.ParentEntityLogicalName = "account";
 
                     }
                     else
@@ -252,7 +216,6 @@ namespace QuickRecordEditor
             var entitySelected = entitiesDropdownControl1.SelectedEntity;
             string entityLogicalName = entitySelected.LogicalName;
             recordGUID = recordGuidBox.Text;
-            recordGUID = "82ade658-41bc-ee11-a569-6045bd90b824";
             AttributeMetadata attributeToUpdateMetadata = attributesDropdown.SelectedAttribute;
             string attributeToUpdateName = attributeToUpdateMetadata.LogicalName;
             Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGUID));

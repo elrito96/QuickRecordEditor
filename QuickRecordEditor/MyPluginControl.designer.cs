@@ -29,16 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyPluginControl));
-            this.toolStripMenu = new System.Windows.Forms.ToolStrip();
-            this.tsbClose = new System.Windows.Forms.ToolStripButton();
-            this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbSample = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.entitiesDropdownControl1 = new xrmtb.XrmToolBox.Controls.EntitiesDropdownControl();
             this.attributesDropdown = new xrmtb.XrmToolBox.Controls.AttributeDropdownControl();
             this.label2 = new System.Windows.Forms.Label();
             this.recordGuidBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.searchRecordButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.searchResultLabel = new System.Windows.Forms.Label();
             this.textBoxLabel = new System.Windows.Forms.Label();
@@ -53,45 +49,13 @@
             this.checkBox = new System.Windows.Forms.CheckBox();
             this.checkBoxLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolStripMenu.SuspendLayout();
+            this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenu = new System.Windows.Forms.ToolStrip();
+            this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.toolStripMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStripMenu
-            // 
-            this.toolStripMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbClose,
-            this.tssSeparator1,
-            this.tsbSample});
-            this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
-            this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(1076, 25);
-            this.toolStripMenu.TabIndex = 4;
-            this.toolStripMenu.Text = "toolStrip1";
-            this.toolStripMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripMenu_ItemClicked);
-            // 
-            // tsbClose
-            // 
-            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(86, 22);
-            this.tsbClose.Text = "Close this tool";
-            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
-            // 
-            // tssSeparator1
-            // 
-            this.tssSeparator1.Name = "tssSeparator1";
-            this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsbSample
-            // 
-            this.tsbSample.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbSample.Name = "tsbSample";
-            this.tsbSample.Size = new System.Drawing.Size(46, 22);
-            this.tsbSample.Text = "Try me";
-            this.tsbSample.Click += new System.EventHandler(this.tsbSample_Click);
             // 
             // label1
             // 
@@ -148,15 +112,15 @@
             this.recordGuidBox.TabIndex = 0;
             this.recordGuidBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // button1
+            // searchRecordButton
             // 
-            this.button1.Location = new System.Drawing.Point(348, 208);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.searchRecordButton.Location = new System.Drawing.Point(348, 208);
+            this.searchRecordButton.Name = "searchRecordButton";
+            this.searchRecordButton.Size = new System.Drawing.Size(75, 23);
+            this.searchRecordButton.TabIndex = 3;
+            this.searchRecordButton.Text = "Search";
+            this.searchRecordButton.UseVisualStyleBackColor = true;
+            this.searchRecordButton.Click += new System.EventHandler(this.searchRecordButton_Click);
             // 
             // label3
             // 
@@ -201,7 +165,7 @@
             // updateResultLabel
             // 
             this.updateResultLabel.AutoSize = true;
-            this.updateResultLabel.Location = new System.Drawing.Point(527, 429);
+            this.updateResultLabel.Location = new System.Drawing.Point(520, 428);
             this.updateResultLabel.Name = "updateResultLabel";
             this.updateResultLabel.Size = new System.Drawing.Size(35, 13);
             this.updateResultLabel.TabIndex = 10;
@@ -302,6 +266,32 @@
             this.panel2.Size = new System.Drawing.Size(250, 92);
             this.panel2.TabIndex = 13;
             // 
+            // tssSeparator1
+            // 
+            this.tssSeparator1.Name = "tssSeparator1";
+            this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripMenu
+            // 
+            this.toolStripMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbClose,
+            this.tssSeparator1});
+            this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
+            this.toolStripMenu.Name = "toolStripMenu";
+            this.toolStripMenu.Size = new System.Drawing.Size(1076, 25);
+            this.toolStripMenu.TabIndex = 4;
+            this.toolStripMenu.Text = "toolStrip1";
+            this.toolStripMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripMenu_ItemClicked);
+            // 
+            // tsbClose
+            // 
+            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbClose.Name = "tsbClose";
+            this.tsbClose.Size = new System.Drawing.Size(86, 22);
+            this.tsbClose.Text = "Close this tool";
+            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
+            // 
             // MyPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,7 +303,7 @@
             this.Controls.Add(this.updateResultLabel);
             this.Controls.Add(this.searchResultLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.searchRecordButton);
             this.Controls.Add(this.toolStripMenu);
             this.Controls.Add(this.attributesDropdown);
             this.Controls.Add(this.label3);
@@ -323,28 +313,24 @@
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(1076, 472);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
-            this.toolStripMenu.ResumeLayout(false);
-            this.toolStripMenu.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.toolStripMenu.ResumeLayout(false);
+            this.toolStripMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.ToolStrip toolStripMenu;
-        private System.Windows.Forms.ToolStripButton tsbClose;
-        private System.Windows.Forms.ToolStripButton tsbSample;
-        private System.Windows.Forms.ToolStripSeparator tssSeparator1;
         private System.Windows.Forms.Label label1;
         private xrmtb.XrmToolBox.Controls.EntitiesDropdownControl entitiesDropdownControl1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox recordGuidBox;
         private xrmtb.XrmToolBox.Controls.AttributeDropdownControl attributesDropdown;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button searchRecordButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label searchResultLabel;
         private System.Windows.Forms.Label textBoxLabel;
@@ -359,5 +345,8 @@
         private System.Windows.Forms.Label checkBoxLabel;
         private System.Windows.Forms.CheckBox checkBox;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripSeparator tssSeparator1;
+        private System.Windows.Forms.ToolStrip toolStripMenu;
+        private System.Windows.Forms.ToolStripButton tsbClose;
     }
 }
