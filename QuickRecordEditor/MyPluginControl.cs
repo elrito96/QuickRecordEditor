@@ -1,5 +1,8 @@
 ﻿using McTools.Xrm.Connection;
+using Microsoft.Rest;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
@@ -10,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using xrmtb.XrmToolBox.Controls;
 using XrmToolBox.Extensibility;
 
 namespace QuickRecordEditor
@@ -104,6 +108,8 @@ namespace QuickRecordEditor
             }
 
             entitiesDropdownControl1.Service = newService;
+            attributesDropdown.Service = newService;
+
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -156,21 +162,30 @@ namespace QuickRecordEditor
                     if (resultEntity != null)
                     {
                         // found
-                        resultLabel.Text = "Found record";
-                        resultLabel.Visible = true;
-                        resultLabel.ForeColor = Color.Green;
+                        setLabel(searchResultLabel, "Found record", Color.Green);
+                        // Create the request
+                        var request = new RetrieveEntityRequest
+                        {
+                            EntityFilters = EntityFilters.All, // Specify what parts of the metadata you want
+                            LogicalName = entityLogicalName,   // The logical name of the entity
+                            RetrieveAsIfPublished = true       // If true, retrieves metadata that includes any unpublished changes
+                        };
 
-                        attributesDropdown.ParentEntity = entitySelected;
-                        attributesDropdown.ParentEntityLogicalName = entityLogicalName;
-                        attributesDropdown.LoadData();
+                        // Execute the request
+                        var response = (RetrieveEntityResponse)Service.Execute(request);
 
+                        var fullmetadata = response.EntityMetadata;
+
+                        attributesDropdown.ParentEntity = fullmetadata;
+                        attributesDropdown.ParentEntityLogicalName = "account";
+
+                        attributesDropdown.Refresh();
                     }
                     else
                     {
                         // not found
-                        resultLabel.Text = "Couldn't find record of entity " + entityLogicalName + " with GUID: " + recordGuid;
-                        resultLabel.Visible = true;
-                        resultLabel.ForeColor = Color.Red;
+                        setLabel(searchResultLabel, "Couldn't find record of entity " + entityLogicalName + " with GUID: " + recordGuid, Color.Red);
+                        
                     }
                 }
                 catch (Exception ex)
@@ -180,13 +195,8 @@ namespace QuickRecordEditor
             }
             else
             {
-                resultLabel.Text = recordGuid + " is not a valid GUID";
-                resultLabel.Visible = true;
-                resultLabel.ForeColor = Color.Red;
+                setLabel(searchResultLabel, recordGuid + " is not a valid GUID", Color.Red);
             }
-
-            
-
 
         }
 
@@ -207,6 +217,77 @@ namespace QuickRecordEditor
         }
 
         private void attributeDropdownControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void attributeDropdownBaseControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            var entitySelected = entitiesDropdownControl1.SelectedEntity;
+            string entityLogicalName = entitySelected.LogicalName;
+            string recordGuid = recordGuidBox.Text;
+            AttributeMetadata attributeToUpdateMetadata = attributesDropdown.SelectedAttribute;
+            string attributeToUpdateName = attributeToUpdateMetadata.LogicalName;
+
+            bool isValid = IsValidGuid(recordGuid);
+            if (isValid)
+            {
+                Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGuid));
+                entityToUpdate.Attributes[attributeToUpdateName] = newValueTextBox.Text;
+
+                try
+                {
+                    Service.Update(entityToUpdate);
+                    setLabel(updateResultLabel, "Update Successful", Color.Green);
+
+                } catch (Exception ex)
+                {
+                    // Errror updating
+                    Service.Update(entityToUpdate);
+                    setLabel(updateResultLabel, "Error updating record: "+ex.Message, Color.Red);
+                }
+
+
+            } else
+            {
+                // Error not valid guid
+                setLabel(updateResultLabel, "Error GUID not valid", Color.Red);
+            }
+        }
+
+        private void setLabel(System.Windows.Forms.Label label, string text, Color color)
+        {
+            label.Text = text;
+            label.ForeColor = color;
+            label.Visible = true;
+        }
+
+        private void updateResultLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
         }
