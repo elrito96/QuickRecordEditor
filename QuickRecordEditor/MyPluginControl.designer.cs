@@ -52,6 +52,15 @@
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
+            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.emptyOptionSetButton = new System.Windows.Forms.Button();
+            this.emptyDateButton = new System.Windows.Forms.Button();
+            this.emptyBooleanButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStripMenu.SuspendLayout();
@@ -185,6 +194,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkedListBox);
             this.panel1.Controls.Add(this.checkBox);
             this.panel1.Controls.Add(this.dateTimePicker);
             this.panel1.Controls.Add(this.comboBox);
@@ -239,16 +249,16 @@
             this.comboBoxLabel.AutoSize = true;
             this.comboBoxLabel.Location = new System.Drawing.Point(378, 27);
             this.comboBoxLabel.Name = "comboBoxLabel";
-            this.comboBoxLabel.Size = new System.Drawing.Size(123, 13);
+            this.comboBoxLabel.Size = new System.Drawing.Size(124, 13);
             this.comboBoxLabel.TabIndex = 11;
-            this.comboBoxLabel.Text = "Select the correct option";
+            this.comboBoxLabel.Text = "Select the desired option";
             this.comboBoxLabel.Visible = false;
             this.comboBoxLabel.Click += new System.EventHandler(this.label5_Click);
             // 
             // checkBoxLabel
             // 
             this.checkBoxLabel.AutoSize = true;
-            this.checkBoxLabel.Location = new System.Drawing.Point(263, 53);
+            this.checkBoxLabel.Location = new System.Drawing.Point(303, 59);
             this.checkBoxLabel.Name = "checkBoxLabel";
             this.checkBoxLabel.Size = new System.Drawing.Size(238, 13);
             this.checkBoxLabel.TabIndex = 15;
@@ -257,6 +267,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.checkedListBoxLabel);
             this.panel2.Controls.Add(this.checkBoxLabel);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.datetimePickerLabel);
@@ -264,7 +275,7 @@
             this.panel2.Controls.Add(this.textBoxLabel);
             this.panel2.Location = new System.Drawing.Point(466, 121);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(504, 118);
+            this.panel2.Size = new System.Drawing.Size(504, 136);
             this.panel2.TabIndex = 13;
             // 
             // tssSeparator1
@@ -293,10 +304,105 @@
             this.tsbClose.Text = "Close this tool";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
+            // checkedListBox
+            // 
+            this.checkedListBox.FormattingEnabled = true;
+            this.checkedListBox.Location = new System.Drawing.Point(6, 94);
+            this.checkedListBox.Name = "checkedListBox";
+            this.checkedListBox.Size = new System.Drawing.Size(154, 19);
+            this.checkedListBox.TabIndex = 14;
+            this.checkedListBox.Visible = false;
+            // 
+            // checkedListBoxLabel
+            // 
+            this.checkedListBoxLabel.AutoSize = true;
+            this.checkedListBoxLabel.Location = new System.Drawing.Point(348, 72);
+            this.checkedListBoxLabel.Name = "checkedListBoxLabel";
+            this.checkedListBoxLabel.Size = new System.Drawing.Size(111, 13);
+            this.checkedListBoxLabel.TabIndex = 16;
+            this.checkedListBoxLabel.Text = "Select desired options";
+            this.checkedListBoxLabel.Visible = false;
+            this.checkedListBoxLabel.Click += new System.EventHandler(this.label4_Click_1);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(18, 395);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(286, 20);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.Text = "473965b4-f119-ec11-b6e6-6045bd8aa398";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(18, 437);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(286, 20);
+            this.textBox2.TabIndex = 15;
+            this.textBox2.Text = "3ffb5702-8446-ef11-bfe2-000d3a221385";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 376);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "acc id";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 422);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "contact id";
+            // 
+            // emptyOptionSetButton
+            // 
+            this.emptyOptionSetButton.Location = new System.Drawing.Point(466, 280);
+            this.emptyOptionSetButton.Name = "emptyOptionSetButton";
+            this.emptyOptionSetButton.Size = new System.Drawing.Size(116, 23);
+            this.emptyOptionSetButton.TabIndex = 18;
+            this.emptyOptionSetButton.Text = "Empty Optionset";
+            this.emptyOptionSetButton.UseVisualStyleBackColor = true;
+            this.emptyOptionSetButton.Visible = false;
+            this.emptyOptionSetButton.Click += new System.EventHandler(this.emptyOptionSetButton_Click);
+            // 
+            // emptyDateButton
+            // 
+            this.emptyDateButton.Location = new System.Drawing.Point(588, 280);
+            this.emptyDateButton.Name = "emptyDateButton";
+            this.emptyDateButton.Size = new System.Drawing.Size(129, 23);
+            this.emptyDateButton.TabIndex = 19;
+            this.emptyDateButton.Text = "Empty Date";
+            this.emptyDateButton.UseVisualStyleBackColor = true;
+            this.emptyDateButton.Visible = false;
+            this.emptyDateButton.Click += new System.EventHandler(this.emptyDateButton_Click);
+            // 
+            // emptyBooleanButton
+            // 
+            this.emptyBooleanButton.Location = new System.Drawing.Point(723, 280);
+            this.emptyBooleanButton.Name = "emptyBooleanButton";
+            this.emptyBooleanButton.Size = new System.Drawing.Size(138, 23);
+            this.emptyBooleanButton.TabIndex = 20;
+            this.emptyBooleanButton.Text = "Empty Boolean";
+            this.emptyBooleanButton.UseVisualStyleBackColor = true;
+            this.emptyBooleanButton.Visible = false;
+            this.emptyBooleanButton.Click += new System.EventHandler(this.emptyBooleanButton_Click);
+            // 
             // MyPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.emptyBooleanButton);
+            this.Controls.Add(this.emptyDateButton);
+            this.Controls.Add(this.emptyOptionSetButton);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.recordGuidBox);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.updateResultLabel);
@@ -348,5 +454,14 @@
         private System.Windows.Forms.ToolStripSeparator tssSeparator1;
         private System.Windows.Forms.ToolStrip toolStripMenu;
         private System.Windows.Forms.ToolStripButton tsbClose;
+        private System.Windows.Forms.CheckedListBox checkedListBox;
+        private System.Windows.Forms.Label checkedListBoxLabel;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button emptyOptionSetButton;
+        private System.Windows.Forms.Button emptyDateButton;
+        private System.Windows.Forms.Button emptyBooleanButton;
     }
 }

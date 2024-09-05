@@ -25,6 +25,7 @@ namespace QuickRecordEditor
         
         private Settings mySettings;
         public static string recordGUID;
+        public static List<AttributeMetadata> multiSelectOptionSetMetadata;
 
         public MyPluginControl()
         {
@@ -81,6 +82,17 @@ namespace QuickRecordEditor
             attributesDropdown.Service = newService;
             attributesDropdown.SelectedItemChanged += AttributeTypeComboBox_SelectedIndexChanged;
 
+            //TODOv2: try to add multiselect attributes to attribute dropdown
+            
+            List<AttributeMetadata> attributeList = attributesDropdown.AllAttributes;
+            foreach(AttributeMetadata attribute in attributeList)
+            {
+                if (attribute.AttributeTypeName.Value.Contains("Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata"))
+                {
+                    multiSelectOptionSetMetadata.Add(attribute);
+                }
+            }
+
         }
         private void AttributeTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -95,27 +107,42 @@ namespace QuickRecordEditor
         {
             string attributeType = selectedAttributeMetadata.AttributeTypeName.Value;
             // Hide all controls first
+
+            // Text region
             textBox.Visible = false;
             textBox.Location = new System.Drawing.Point(0, 0);
             textBoxLabel.Visible = false;
             textBoxLabel.Location = new System.Drawing.Point(0, 0);
 
+            // Checkbox region
             checkBox.Visible = false;
             checkBox.Location = new System.Drawing.Point(0, 0);
             checkBoxLabel.Visible = false;
             checkBoxLabel.Location = new System.Drawing.Point(0, 0);
+            emptyBooleanButton.Visible = false;
 
+            // Date region
             dateTimePicker.Visible = false;
             dateTimePicker.Location = new System.Drawing.Point(0, 0);
             datetimePickerLabel.Visible = false;
             datetimePickerLabel.Location = new System.Drawing.Point(0, 0);
+            emptyDateButton.Visible = false;
 
+            // Combo region
             comboBox.Visible = false;
             comboBox.Location = new System.Drawing.Point(0, 0);
             comboBoxLabel.Visible = false;
             comboBoxLabel.Location = new System.Drawing.Point(0, 0);
+            emptyOptionSetButton.Visible = false;
 
-            //TODO UniqueidentifierType
+            // CheckedList region
+            checkedListBox.Visible = false;
+            checkedListBox.Location = new System.Drawing.Point(0, 0);
+            checkedListBoxLabel.Visible = false;
+            checkedListBoxLabel.Location = new System.Drawing.Point(0, 0);
+            
+            //TODOv2 UniqueidentifierType
+            //TODOv2 Statetype
 
             // Show the relevant control based on the attribute type
             switch (attributeType)
@@ -133,17 +160,19 @@ namespace QuickRecordEditor
                 case "BooleanType":
                     checkBox.Visible = true;
                     checkBoxLabel.Visible= true;
+                    emptyBooleanButton.Visible = true;
                     break;
 
                 case "DateTimeType":
                     dateTimePicker.Visible = true;
                     datetimePickerLabel.Visible = true;
+                    emptyDateButton.Visible = true;
                     break;
 
-                case "OptionSetType":
                 case "PicklistType":
                     comboBox.Visible = true;
                     comboBoxLabel.Visible = true;
+                    emptyOptionSetButton.Visible = true;
 
                     //populate combobox
                     var optionList = new List<KeyValuePair<int, string>>();
@@ -152,12 +181,16 @@ namespace QuickRecordEditor
                     {
                         optionList.Add(new KeyValuePair<int, string>(option.Value.Value, option.Label.UserLocalizedLabel.Label));
                     }
+                    // add empty value
+                    optionList.Insert(0, new KeyValuePair<int, string>(-1, "*** Select this option to empty field ***"));
+
                     // Set the ComboBox DataSource
                     comboBox.DataSource = new BindingSource(optionList, null);
                     comboBox.DisplayMember = "Value";
                     comboBox.ValueMember = "Key";
-                    break;
 
+                    
+                    break;
                 default:
                     setLabel(updateResultLabel, attributeType + " Is an unsupported attribute type", Color.Red);
                     break;
@@ -295,6 +328,8 @@ namespace QuickRecordEditor
                     break;
 
                 case "OptionSetType":
+                    //deprecated
+                    break;
                 case "PicklistType":
                     if (comboBox.SelectedItem != null)
                     {
@@ -302,7 +337,15 @@ namespace QuickRecordEditor
                         var selectedOption = (KeyValuePair<int, string>)comboBox.SelectedItem;
                         int optionSetValue = selectedOption.Key;
 
-                        entityToUpdate.Attributes[attributeToUpdateName] = new OptionSetValue(optionSetValue);
+                        if(optionSetValue != -1)
+                        {
+                            entityToUpdate.Attributes[attributeToUpdateName] = new OptionSetValue(optionSetValue);
+                        }
+                        else
+                        {
+                            entityToUpdate.Attributes[attributeToUpdateName] = null;
+                        }
+                        
                     }
                     else
                     {
@@ -343,6 +386,20 @@ namespace QuickRecordEditor
         private static bool IsValidGuid(string input)
         {
             return Guid.TryParse(input, out _);
+        }
+        private void emptyOptionSetButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void emptyDateButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void emptyBooleanButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void updateResultLabel_Click(object sender, EventArgs e)
@@ -439,6 +496,16 @@ namespace QuickRecordEditor
             {
                 checkBox.Text = "False";
             }
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
         }
     }
 }
