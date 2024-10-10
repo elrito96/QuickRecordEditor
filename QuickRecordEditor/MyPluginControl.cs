@@ -22,10 +22,15 @@ namespace QuickRecordEditor
 {
     public partial class MyPluginControl : PluginControlBase
     {
-        
+        // Global variables
         private Settings mySettings;
         public static string recordGUID;
         public static List<AttributeMetadata> multiSelectOptionSetMetadata;
+
+        // Buttons states variables
+        private bool isEmptyOptionSetButtonClicked = false;
+        private bool isEmptyDateTimePickerButtonClicked = false;
+        private bool isEmptyBooleanButtonClicked = false;
 
         public MyPluginControl()
         {
@@ -140,9 +145,16 @@ namespace QuickRecordEditor
             checkedListBox.Location = new System.Drawing.Point(0, 0);
             checkedListBoxLabel.Visible = false;
             checkedListBoxLabel.Location = new System.Drawing.Point(0, 0);
-            
+
+            //Buttons
+            emptyOptionSetButton.Location = new System.Drawing.Point(0, 0);
+            emptyDateButton.Location = new System.Drawing.Point(0, 0);
+            emptyBooleanButton.Location = new System.Drawing.Point(0, 0);
+
             //TODOv2 UniqueidentifierType
             //TODOv2 Statetype
+            //TODOv2 ownertype? owner field can be user or team, currently doesnt work
+            //TODOv2 MemoType ?????? what is this
 
             // Show the relevant control based on the attribute type
             switch (attributeType)
@@ -253,6 +265,14 @@ namespace QuickRecordEditor
             string attributeToUpdateName = attributeToUpdateMetadata.LogicalName;
             Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGUID));
 
+            /*
+            // test
+            Entity contact = new Entity("contact", new Guid("3ffb5702-8446-ef11-bfe2-000d3a221385"));
+            contact.Attributes["sis_dateofbirth"] = null;
+            Service.Update(contact);
+            */
+
+
             var attributeTypeName = attributeToUpdateMetadata.AttributeTypeName;
 
             bool validUpdate = true;
@@ -318,13 +338,27 @@ namespace QuickRecordEditor
                     break;
 
                 case "BooleanType":
-                    bool boolValue = checkBox.Checked;
-                    entityToUpdate.Attributes[attributeToUpdateName] = boolValue;
+                    if (isEmptyBooleanButtonClicked)
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = null;
+                    }
+                    else{
+                        bool boolValue = checkBox.Checked;
+                        entityToUpdate.Attributes[attributeToUpdateName] = boolValue;
+                    }
+                    
                     break;
 
                 case "DateTimeType":
-                    DateTime dateTimeValue = dateTimePicker.Value;
-                    entityToUpdate.Attributes[attributeToUpdateName] = dateTimeValue;
+                    if (isEmptyDateTimePickerButtonClicked)
+                    {
+                        entityToUpdate.Attributes[attributeToUpdateName] = null;
+                    }
+                    else
+                    {
+                        DateTime dateTimeValue = dateTimePicker.Value;
+                        entityToUpdate.Attributes[attributeToUpdateName] = dateTimeValue;
+                    }
                     break;
 
                 case "OptionSetType":
@@ -389,17 +423,89 @@ namespace QuickRecordEditor
         }
         private void emptyOptionSetButton_Click(object sender, EventArgs e)
         {
-            
-        }
+            isEmptyOptionSetButtonClicked = !isEmptyOptionSetButtonClicked;
 
+            if (isEmptyOptionSetButtonClicked)
+            {
+                emptyOptionSetButton.Text = "Click to enable Optionset";
+                // Disable the picklist
+                comboBox.Enabled = false;
+                comboBox.SelectedIndex = -1;
+                comboBox.Text = "*** Select this option to empty field ***";
+            }
+            else
+            {
+                emptyOptionSetButton.Text = "Click to empty Optionset";
+                comboBox.Enabled = true;
+            }
+        }
         private void emptyDateButton_Click(object sender, EventArgs e)
         {
+            isEmptyDateTimePickerButtonClicked = !isEmptyDateTimePickerButtonClicked;
 
+            if (isEmptyDateTimePickerButtonClicked)
+            {
+                emptyDateButton.Text = "Click to enable DateTimePicker";
+                // Disable the DateTimePicker
+                dateTimePicker.Enabled = false;
+                // Set Checked to false to "clear" the selection (simulates null behavior)
+                dateTimePicker.Checked = false;
+            } else
+            {
+                emptyDateButton.Text = "Click to empty DateTimePicker";
+                dateTimePicker.Enabled = true;
+            }
         }
 
         private void emptyBooleanButton_Click(object sender, EventArgs e)
         {
+            isEmptyBooleanButtonClicked = !isEmptyBooleanButtonClicked;
 
+            if (isEmptyBooleanButtonClicked)
+            {
+                emptyBooleanButton.Text = "Click to enable Checkbox";
+                // Disable the checkbox
+                checkBox.Enabled = false;
+                
+            }
+            else
+            {
+                emptyBooleanButton.Text = "Click to empty Checkbox";
+                checkBox.Enabled = true;
+            }
+        }
+
+        private void attributeDropdownControl1_Load(object sender, EventArgs e)
+        {
+            attributesDropdown.SelectedItemChanged += new EventHandler(attributeDropdownBaseControl1_SelectedIndexChanged);
+        }
+
+        private void attributeDropdownBaseControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Clear button states
+            isEmptyOptionSetButtonClicked = false;
+            emptyOptionSetButton.Text = "Click to empty Optionset";
+            comboBox.Enabled = true;
+
+            isEmptyDateTimePickerButtonClicked = false;
+            emptyDateButton.Text = "Click to empty Date";
+            dateTimePicker.Enabled = true;
+
+            isEmptyBooleanButtonClicked = false;
+            emptyBooleanButton.Text = "Click to empty Optionset";
+            checkBox.Enabled = true;
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox.Checked)
+            {
+                checkBox.Text = "True";
+            }
+            else
+            {
+                checkBox.Text = "False";
+            }
         }
 
         private void updateResultLabel_Click(object sender, EventArgs e)
@@ -421,16 +527,7 @@ namespace QuickRecordEditor
         {
 
         }
-        private void attributeDropdownControl1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void attributeDropdownBaseControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -486,17 +583,7 @@ namespace QuickRecordEditor
 
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox.Checked)
-            {
-                checkBox.Text = "True";
-            }
-            else
-            {
-                checkBox.Text = "False";
-            }
-        }
+        
 
         private void label4_Click_1(object sender, EventArgs e)
         {
@@ -504,6 +591,11 @@ namespace QuickRecordEditor
         }
 
         private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

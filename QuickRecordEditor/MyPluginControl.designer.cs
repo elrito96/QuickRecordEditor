@@ -42,6 +42,7 @@
             this.updateResultLabel = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.checkBox = new System.Windows.Forms.CheckBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.comboBox = new System.Windows.Forms.ComboBox();
@@ -49,11 +50,10 @@
             this.comboBoxLabel = new System.Windows.Forms.Label();
             this.checkBoxLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkedListBoxLabel = new System.Windows.Forms.Label();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
-            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxLabel = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,15 +61,18 @@
             this.emptyOptionSetButton = new System.Windows.Forms.Button();
             this.emptyDateButton = new System.Windows.Forms.Button();
             this.emptyBooleanButton = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStripMenu.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 75);
+            this.label1.Location = new System.Drawing.Point(548, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 1;
@@ -80,11 +83,11 @@
             // 
             this.entitiesDropdownControl1.AutoLoadData = true;
             this.entitiesDropdownControl1.LanguageCode = 1033;
-            this.entitiesDropdownControl1.Location = new System.Drawing.Point(30, 90);
+            this.entitiesDropdownControl1.Location = new System.Drawing.Point(387, 71);
             this.entitiesDropdownControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.entitiesDropdownControl1.Name = "entitiesDropdownControl1";
             this.entitiesDropdownControl1.Service = null;
-            this.entitiesDropdownControl1.Size = new System.Drawing.Size(327, 283);
+            this.entitiesDropdownControl1.Size = new System.Drawing.Size(417, 283);
             this.entitiesDropdownControl1.SolutionFilter = null;
             this.entitiesDropdownControl1.TabIndex = 0;
             this.entitiesDropdownControl1.Load += new System.EventHandler(this.entitiesDropdownControl1_Load);
@@ -93,20 +96,20 @@
             // 
             this.attributesDropdown.AutoLoadData = true;
             this.attributesDropdown.LanguageCode = 1033;
-            this.attributesDropdown.Location = new System.Drawing.Point(466, 89);
+            this.attributesDropdown.Location = new System.Drawing.Point(393, 220);
             this.attributesDropdown.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.attributesDropdown.Name = "attributesDropdown";
             this.attributesDropdown.ParentEntity = null;
             this.attributesDropdown.ParentEntityLogicalName = null;
             this.attributesDropdown.Service = null;
-            this.attributesDropdown.Size = new System.Drawing.Size(424, 28);
+            this.attributesDropdown.Size = new System.Drawing.Size(411, 28);
             this.attributesDropdown.TabIndex = 5;
             this.attributesDropdown.Load += new System.EventHandler(this.attributeDropdownControl1_Load);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 137);
+            this.label2.Location = new System.Drawing.Point(539, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 2;
@@ -115,15 +118,15 @@
             // 
             // recordGuidBox
             // 
-            this.recordGuidBox.Location = new System.Drawing.Point(30, 153);
+            this.recordGuidBox.Location = new System.Drawing.Point(393, 123);
             this.recordGuidBox.Name = "recordGuidBox";
-            this.recordGuidBox.Size = new System.Drawing.Size(312, 20);
+            this.recordGuidBox.Size = new System.Drawing.Size(411, 20);
             this.recordGuidBox.TabIndex = 0;
             this.recordGuidBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // searchRecordButton
             // 
-            this.searchRecordButton.Location = new System.Drawing.Point(348, 151);
+            this.searchRecordButton.Location = new System.Drawing.Point(551, 149);
             this.searchRecordButton.Name = "searchRecordButton";
             this.searchRecordButton.Size = new System.Drawing.Size(75, 23);
             this.searchRecordButton.TabIndex = 3;
@@ -134,7 +137,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(463, 66);
+            this.label3.Location = new System.Drawing.Point(499, 206);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(174, 13);
             this.label3.TabIndex = 6;
@@ -144,7 +147,7 @@
             // searchResultLabel
             // 
             this.searchResultLabel.AutoSize = true;
-            this.searchResultLabel.Location = new System.Drawing.Point(27, 186);
+            this.searchResultLabel.Location = new System.Drawing.Point(576, 185);
             this.searchResultLabel.Name = "searchResultLabel";
             this.searchResultLabel.Size = new System.Drawing.Size(35, 13);
             this.searchResultLabel.TabIndex = 7;
@@ -166,7 +169,7 @@
             // 
             this.textBox.Location = new System.Drawing.Point(6, 6);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(291, 20);
+            this.textBox.Size = new System.Drawing.Size(402, 20);
             this.textBox.TabIndex = 9;
             this.textBox.Visible = false;
             this.textBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
@@ -174,7 +177,7 @@
             // updateResultLabel
             // 
             this.updateResultLabel.AutoSize = true;
-            this.updateResultLabel.Location = new System.Drawing.Point(520, 428);
+            this.updateResultLabel.Location = new System.Drawing.Point(576, 387);
             this.updateResultLabel.Name = "updateResultLabel";
             this.updateResultLabel.Size = new System.Drawing.Size(35, 13);
             this.updateResultLabel.TabIndex = 10;
@@ -184,9 +187,9 @@
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(507, 364);
+            this.updateButton.Location = new System.Drawing.Point(539, 340);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(76, 52);
+            this.updateButton.Size = new System.Drawing.Size(116, 39);
             this.updateButton.TabIndex = 11;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = true;
@@ -201,8 +204,17 @@
             this.panel1.Controls.Add(this.textBox);
             this.panel1.Location = new System.Drawing.Point(0, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(306, 116);
+            this.panel1.Size = new System.Drawing.Size(411, 116);
             this.panel1.TabIndex = 12;
+            // 
+            // checkedListBox
+            // 
+            this.checkedListBox.FormattingEnabled = true;
+            this.checkedListBox.Location = new System.Drawing.Point(6, 94);
+            this.checkedListBox.Name = "checkedListBox";
+            this.checkedListBox.Size = new System.Drawing.Size(154, 19);
+            this.checkedListBox.TabIndex = 14;
+            this.checkedListBox.Visible = false;
             // 
             // checkBox
             // 
@@ -220,7 +232,7 @@
             // 
             this.dateTimePicker.Location = new System.Drawing.Point(6, 49);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(291, 20);
+            this.dateTimePicker.Size = new System.Drawing.Size(402, 20);
             this.dateTimePicker.TabIndex = 12;
             this.dateTimePicker.Visible = false;
             // 
@@ -229,7 +241,7 @@
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Location = new System.Drawing.Point(6, 28);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(291, 21);
+            this.comboBox.Size = new System.Drawing.Size(402, 21);
             this.comboBox.TabIndex = 10;
             this.comboBox.Visible = false;
             this.comboBox.SelectedIndexChanged += new System.EventHandler(this.attributeTypeComboBox_SelectedIndexChanged_1);
@@ -273,10 +285,21 @@
             this.panel2.Controls.Add(this.datetimePickerLabel);
             this.panel2.Controls.Add(this.comboBoxLabel);
             this.panel2.Controls.Add(this.textBoxLabel);
-            this.panel2.Location = new System.Drawing.Point(466, 121);
+            this.panel2.Location = new System.Drawing.Point(393, 252);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(504, 136);
+            this.panel2.Size = new System.Drawing.Size(411, 38);
             this.panel2.TabIndex = 13;
+            // 
+            // checkedListBoxLabel
+            // 
+            this.checkedListBoxLabel.AutoSize = true;
+            this.checkedListBoxLabel.Location = new System.Drawing.Point(348, 72);
+            this.checkedListBoxLabel.Name = "checkedListBoxLabel";
+            this.checkedListBoxLabel.Size = new System.Drawing.Size(111, 13);
+            this.checkedListBoxLabel.TabIndex = 16;
+            this.checkedListBoxLabel.Text = "Select desired options";
+            this.checkedListBoxLabel.Visible = false;
+            this.checkedListBoxLabel.Click += new System.EventHandler(this.label4_Click_1);
             // 
             // tssSeparator1
             // 
@@ -304,26 +327,6 @@
             this.tsbClose.Text = "Close this tool";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
-            // checkedListBox
-            // 
-            this.checkedListBox.FormattingEnabled = true;
-            this.checkedListBox.Location = new System.Drawing.Point(6, 94);
-            this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(154, 19);
-            this.checkedListBox.TabIndex = 14;
-            this.checkedListBox.Visible = false;
-            // 
-            // checkedListBoxLabel
-            // 
-            this.checkedListBoxLabel.AutoSize = true;
-            this.checkedListBoxLabel.Location = new System.Drawing.Point(348, 72);
-            this.checkedListBoxLabel.Name = "checkedListBoxLabel";
-            this.checkedListBoxLabel.Size = new System.Drawing.Size(111, 13);
-            this.checkedListBoxLabel.TabIndex = 16;
-            this.checkedListBoxLabel.Text = "Select desired options";
-            this.checkedListBoxLabel.Visible = false;
-            this.checkedListBoxLabel.Click += new System.EventHandler(this.label4_Click_1);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(18, 395);
@@ -331,6 +334,7 @@
             this.textBox1.Size = new System.Drawing.Size(286, 20);
             this.textBox1.TabIndex = 14;
             this.textBox1.Text = "473965b4-f119-ec11-b6e6-6045bd8aa398";
+            this.textBox1.Visible = false;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
             // 
             // textBox2
@@ -340,6 +344,8 @@
             this.textBox2.Size = new System.Drawing.Size(286, 20);
             this.textBox2.TabIndex = 15;
             this.textBox2.Text = "3ffb5702-8446-ef11-bfe2-000d3a221385";
+            this.textBox2.Visible = false;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label4
             // 
@@ -349,6 +355,7 @@
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 16;
             this.label4.Text = "acc id";
+            this.label4.Visible = false;
             // 
             // label5
             // 
@@ -358,47 +365,66 @@
             this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 17;
             this.label5.Text = "contact id";
+            this.label5.Visible = false;
             // 
             // emptyOptionSetButton
             // 
-            this.emptyOptionSetButton.Location = new System.Drawing.Point(466, 280);
+            this.emptyOptionSetButton.Location = new System.Drawing.Point(3, 3);
             this.emptyOptionSetButton.Name = "emptyOptionSetButton";
-            this.emptyOptionSetButton.Size = new System.Drawing.Size(116, 23);
+            this.emptyOptionSetButton.Size = new System.Drawing.Size(160, 23);
             this.emptyOptionSetButton.TabIndex = 18;
-            this.emptyOptionSetButton.Text = "Empty Optionset";
+            this.emptyOptionSetButton.Text = "Click to empty Optionset";
             this.emptyOptionSetButton.UseVisualStyleBackColor = true;
             this.emptyOptionSetButton.Visible = false;
             this.emptyOptionSetButton.Click += new System.EventHandler(this.emptyOptionSetButton_Click);
             // 
             // emptyDateButton
             // 
-            this.emptyDateButton.Location = new System.Drawing.Point(588, 280);
+            this.emptyDateButton.Location = new System.Drawing.Point(169, 3);
             this.emptyDateButton.Name = "emptyDateButton";
-            this.emptyDateButton.Size = new System.Drawing.Size(129, 23);
+            this.emptyDateButton.Size = new System.Drawing.Size(160, 23);
             this.emptyDateButton.TabIndex = 19;
-            this.emptyDateButton.Text = "Empty Date";
+            this.emptyDateButton.Text = "Click to empty DateTimePicker";
             this.emptyDateButton.UseVisualStyleBackColor = true;
             this.emptyDateButton.Visible = false;
             this.emptyDateButton.Click += new System.EventHandler(this.emptyDateButton_Click);
             // 
             // emptyBooleanButton
             // 
-            this.emptyBooleanButton.Location = new System.Drawing.Point(723, 280);
+            this.emptyBooleanButton.Location = new System.Drawing.Point(338, 3);
             this.emptyBooleanButton.Name = "emptyBooleanButton";
-            this.emptyBooleanButton.Size = new System.Drawing.Size(138, 23);
+            this.emptyBooleanButton.Size = new System.Drawing.Size(160, 23);
             this.emptyBooleanButton.TabIndex = 20;
-            this.emptyBooleanButton.Text = "Empty Boolean";
+            this.emptyBooleanButton.Text = "Click to empty Boolean";
             this.emptyBooleanButton.UseVisualStyleBackColor = true;
             this.emptyBooleanButton.Visible = false;
             this.emptyBooleanButton.Click += new System.EventHandler(this.emptyBooleanButton_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.emptyOptionSetButton);
+            this.panel3.Controls.Add(this.emptyBooleanButton);
+            this.panel3.Controls.Add(this.emptyDateButton);
+            this.panel3.Location = new System.Drawing.Point(502, 300);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(299, 28);
+            this.panel3.TabIndex = 21;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Location = new System.Drawing.Point(363, 41);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(468, 374);
+            this.panel4.TabIndex = 22;
             // 
             // MyPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.emptyBooleanButton);
-            this.Controls.Add(this.emptyDateButton);
-            this.Controls.Add(this.emptyOptionSetButton);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox2);
@@ -414,7 +440,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.entitiesDropdownControl1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel4);
             this.Name = "MyPluginControl";
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(1076, 472);
@@ -425,6 +451,7 @@
             this.panel2.PerformLayout();
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,5 +490,7 @@
         private System.Windows.Forms.Button emptyOptionSetButton;
         private System.Windows.Forms.Button emptyDateButton;
         private System.Windows.Forms.Button emptyBooleanButton;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
     }
 }
