@@ -67,6 +67,7 @@
             this.panel2.SuspendLayout();
             this.toolStripMenu.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -104,6 +105,7 @@
             this.attributesDropdown.Service = null;
             this.attributesDropdown.Size = new System.Drawing.Size(411, 28);
             this.attributesDropdown.TabIndex = 5;
+            this.attributesDropdown.Visible = false;
             this.attributesDropdown.Load += new System.EventHandler(this.attributeDropdownControl1_Load);
             // 
             // label2
@@ -126,7 +128,7 @@
             // 
             // searchRecordButton
             // 
-            this.searchRecordButton.Location = new System.Drawing.Point(551, 149);
+            this.searchRecordButton.Location = new System.Drawing.Point(559, 149);
             this.searchRecordButton.Name = "searchRecordButton";
             this.searchRecordButton.Size = new System.Drawing.Size(75, 23);
             this.searchRecordButton.TabIndex = 3;
@@ -142,16 +144,17 @@
             this.label3.Size = new System.Drawing.Size(174, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Select the attribute you want to edit";
+            this.label3.Visible = false;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // searchResultLabel
             // 
-            this.searchResultLabel.AutoSize = true;
-            this.searchResultLabel.Location = new System.Drawing.Point(576, 185);
+            this.searchResultLabel.Location = new System.Drawing.Point(390, 175);
             this.searchResultLabel.Name = "searchResultLabel";
-            this.searchResultLabel.Size = new System.Drawing.Size(35, 13);
+            this.searchResultLabel.Size = new System.Drawing.Size(414, 31);
             this.searchResultLabel.TabIndex = 7;
             this.searchResultLabel.Text = "label4";
+            this.searchResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.searchResultLabel.Visible = false;
             // 
             // textBoxLabel
@@ -176,18 +179,19 @@
             // 
             // updateResultLabel
             // 
-            this.updateResultLabel.AutoSize = true;
-            this.updateResultLabel.Location = new System.Drawing.Point(576, 387);
+            this.updateResultLabel.Location = new System.Drawing.Point(23, 342);
             this.updateResultLabel.Name = "updateResultLabel";
-            this.updateResultLabel.Size = new System.Drawing.Size(35, 13);
+            this.updateResultLabel.Size = new System.Drawing.Size(420, 20);
             this.updateResultLabel.TabIndex = 10;
             this.updateResultLabel.Text = "label5";
+            this.updateResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.updateResultLabel.Visible = false;
             this.updateResultLabel.Click += new System.EventHandler(this.updateResultLabel_Click);
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(539, 340);
+            this.updateButton.Enabled = false;
+            this.updateButton.Location = new System.Drawing.Point(542, 340);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(116, 39);
             this.updateButton.TabIndex = 11;
@@ -405,7 +409,7 @@
             this.panel3.Controls.Add(this.emptyOptionSetButton);
             this.panel3.Controls.Add(this.emptyBooleanButton);
             this.panel3.Controls.Add(this.emptyDateButton);
-            this.panel3.Location = new System.Drawing.Point(502, 300);
+            this.panel3.Location = new System.Drawing.Point(523, 300);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(299, 28);
             this.panel3.TabIndex = 21;
@@ -414,6 +418,7 @@
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Control;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.updateResultLabel);
             this.panel4.Location = new System.Drawing.Point(363, 41);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(468, 374);
@@ -431,7 +436,6 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.recordGuidBox);
             this.Controls.Add(this.updateButton);
-            this.Controls.Add(this.updateResultLabel);
             this.Controls.Add(this.searchResultLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.searchRecordButton);
@@ -452,6 +456,7 @@
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

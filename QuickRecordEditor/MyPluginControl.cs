@@ -39,7 +39,8 @@ namespace QuickRecordEditor
 
         private void MyPluginControl_Load(object sender, EventArgs e)
         {
-            ShowInfoNotification("This tool is opencode, link to git:", new Uri("https://github.com/elrito96/QuickRecordEditor"));
+            ShowInfoNotification(@"
+This tool is Open Source, click on ""learn more"" for a link to git repository:", new Uri("https://github.com/elrito96/QuickRecordEditor"));
 
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
@@ -230,11 +231,54 @@ namespace QuickRecordEditor
                     if (resultEntity != null)
                     {
                         // found
-                        setLabel(searchResultLabel, "Found record", Color.Green);
+                        setLabel(searchResultLabel, "Record found", Color.Green);
                         
                         var fullmetadata = entitySelectedMetadata;
 
                         attributesDropdown.ParentEntity = fullmetadata;
+
+                        updateButton.Enabled = true;
+                        attributesDropdown.Visible = true;
+                        label3.Visible = true;
+
+                        attributesDropdown.LoadData();
+
+                        // Have to repeat this code as I couldn't find an option to force the attribute dropdown to refresh and reload a value to recheck visibility
+                        /*System.Threading.Thread.Sleep(1000);
+                        string attributeType = attributesDropdown.SelectedAttribute.AttributeTypeName.Value;
+                        switch (attributeType)
+                        {
+                            case "StringType":
+                            case "IntegerType":
+                            case "DecimalType":
+                            case "DoubleType":
+                            case "MoneyType":
+                            case "LookupType":
+                                textBox.Visible = true;
+                                textBoxLabel.Visible = true;
+                                break;
+
+                            case "BooleanType":
+                                checkBox.Visible = true;
+                                checkBoxLabel.Visible = true;
+                                emptyBooleanButton.Visible = true;
+                                break;
+
+                            case "DateTimeType":
+                                dateTimePicker.Visible = true;
+                                datetimePickerLabel.Visible = true;
+                                emptyDateButton.Visible = true;
+                                break;
+
+                            case "PicklistType":
+                                comboBox.Visible = true;
+                                comboBoxLabel.Visible = true;
+                                emptyOptionSetButton.Visible = true;
+
+                                break;
+                            default:
+                                break;
+                        }*/
 
                     }
                     else
@@ -247,6 +291,7 @@ namespace QuickRecordEditor
                 catch (Exception ex)
                 {
                     string message = "Error retrieving entity: " + ex.Message;
+                    setLabel(searchResultLabel, message, Color.Red);
                 }
             }
             else
@@ -398,7 +443,7 @@ namespace QuickRecordEditor
                 try
                 {
                     Service.Update(entityToUpdate);
-                    setLabel(updateResultLabel, "Update Successful", Color.Green);
+                    setLabel(updateResultLabel, "Update successful", Color.Green);
 
                 }
                 catch (Exception ex)
@@ -545,9 +590,40 @@ namespace QuickRecordEditor
 
         private void entitiesDropdownControl1_Load(object sender, EventArgs e)
         {
-
+            entitiesDropdownControl1.SelectedItemChanged += new EventHandler(entitiesDropdownControl11_SelectedIndexChanged);
         }
 
+        private void entitiesDropdownControl11_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Hide everything
+
+            textBox.Visible = false;
+            textBoxLabel.Visible = false;
+
+            checkBox.Visible = false;
+            checkBoxLabel.Visible = false;
+            emptyBooleanButton.Visible = false;
+
+            dateTimePicker.Visible = false;
+            datetimePickerLabel.Visible = false;
+            emptyDateButton.Visible = false;
+
+            comboBox.Visible = false;
+            comboBoxLabel.Visible = false;
+            emptyOptionSetButton.Visible = false;
+            
+            attributesDropdown.Visible = false;
+            label3.Visible = false;
+
+            updateResultLabel.Visible = false;
+            searchResultLabel.Visible = false;
+
+            // Clear GUID field
+            recordGuidBox.Text = string.Empty;
+
+            // Disable update
+            updateButton.Enabled = false;
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
