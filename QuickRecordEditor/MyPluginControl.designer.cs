@@ -120,6 +120,7 @@
             // 
             // recordGuidBox
             // 
+            this.recordGuidBox.Enabled = false;
             this.recordGuidBox.Location = new System.Drawing.Point(393, 123);
             this.recordGuidBox.Name = "recordGuidBox";
             this.recordGuidBox.Size = new System.Drawing.Size(411, 20);
@@ -128,6 +129,7 @@
             // 
             // searchRecordButton
             // 
+            this.searchRecordButton.Enabled = false;
             this.searchRecordButton.Location = new System.Drawing.Point(559, 149);
             this.searchRecordButton.Name = "searchRecordButton";
             this.searchRecordButton.Size = new System.Drawing.Size(75, 23);

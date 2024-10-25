@@ -623,6 +623,13 @@ This tool is Open Source, click on ""learn more"" for a link to git repository:"
 
             // Disable update
             updateButton.Enabled = false;
+
+            if(entitiesDropdownControl1.SelectedEntity != null)
+            {
+                //enable first fields
+                recordGuidBox.Enabled = true;
+                searchRecordButton.Enabled = true;
+            }
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
