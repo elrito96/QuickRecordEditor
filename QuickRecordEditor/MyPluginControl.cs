@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Services.Description;
 using System.Windows.Forms;
 using xrmtb.XrmToolBox.Controls;
 using XrmToolBox.Extensibility;
@@ -213,12 +214,23 @@ This tool is Open Source, click on ""learn more"" for a link to git repository:"
 
         private void searchRecordButton_Click(object sender, EventArgs e)
         {
-            // Example: account guid: 82ade658-41bc-ee11-a569-6045bd90b824
+            /*
+            Entity _opportunity = Service.Retrieve("opportunity", new Guid("a5a9b923-54b9-ef11-b8e8-7c1e52284103"), new ColumnSet(true));
+
+            _opportunity.Attributes["mcs_programmeversioncampusid"] = new EntityReference()
+
+            Service.Create(_opportunity);
+            */
+
+
+
 
             // When clicked search entity selected in entitiesDropdownControl1_Load, with GUID in textBox1_TextChanged: 
             var entitySelectedMetadata = entitiesDropdownControl1.SelectedEntity;
             string entityLogicalName = entitySelectedMetadata.LogicalName;
             recordGUID = recordGuidBox.Text;
+
+
 
             bool isValid = IsValidGuid(recordGUID);
 
@@ -303,6 +315,7 @@ This tool is Open Source, click on ""learn more"" for a link to git repository:"
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            
             var entitySelected = entitiesDropdownControl1.SelectedEntity;
             string entityLogicalName = entitySelected.LogicalName;
             recordGUID = recordGuidBox.Text;
@@ -311,6 +324,15 @@ This tool is Open Source, click on ""learn more"" for a link to git repository:"
             Entity entityToUpdate = new Entity(entityLogicalName, new Guid(recordGUID));
 
             /*
+            var request = new RetrieveEntityChangesRequest
+            {
+                EntityName = "account",
+                Columns = new ColumnSet("name", "createdon", "modifiedon"),
+                PageInfo = new PagingInfo { PageNumber = 1, Count = 500 },
+                DataVersion = null // Para la primera solicitud
+            };
+
+            
             // test
             Entity contact = new Entity("contact", new Guid("3ffb5702-8446-ef11-bfe2-000d3a221385"));
             contact.Attributes["sis_dateofbirth"] = null;
@@ -374,7 +396,7 @@ This tool is Open Source, click on ""learn more"" for a link to git repository:"
                 case "LookupType":
                     if (Guid.TryParse(textBox.Text, out Guid lookupId))
                     {
-                        entityToUpdate.Attributes[attributeToUpdateName] = new EntityReference("entityLogicalName", lookupId); // Replace "entityLogicalName" with the logical name of the lookup entity
+                        entityToUpdate.Attributes[attributeToUpdateName] = new EntityReference(attributeToUpdateName, lookupId); // Replace "entityLogicalName" with the logical name of the lookup entity
                     }
                     else
                     {
